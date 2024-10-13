@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gutendex Book Library</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="container">
+        <h1>Gutendex Book Library</h1>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container">
+      <div class="filters">
+        <input type="text" id="search" placeholder="Search by title..." />
+        <select id="genre-filter">
+          <option value="">All Genres</option>
+        </select>
+        <button id="filter-btn">Filter</button>
+      </div>
+
+      <div id="books-container"></div>
+      <div id="loading-indicator" style="display: none">
+        <div class="spinner"></div>
+        <p>Please wait...</p>
+      </div>
+
+      <div class="pagination">
+        <button id="prev-page">Previous</button>
+        <div id="page-numbers"></div>
+        <button id="next-page">Next</button>
+      </div>
+    </main>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

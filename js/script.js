@@ -12,13 +12,11 @@ let booksPerPage = 20;
 let totalPages = 0;
 let currentBooks = [];
 
-// Load saved preferences
 const savedSearch = localStorage.getItem("bookSearch") || "";
 const savedGenre = localStorage.getItem("bookGenre") || "";
 searchInput.value = savedSearch;
 genreFilter.value = savedGenre;
 
-// Fetch books from API
 async function fetchBooks(page = 1) {
   loadingIndicator.style.display = "block";
   const searchTerm = searchInput.value;
@@ -39,7 +37,6 @@ async function fetchBooks(page = 1) {
   }
 }
 
-// Display books
 function displayBooks(books) {
   booksContainer.innerHTML = "";
   books.forEach((book) => {
@@ -57,17 +54,17 @@ function displayBooks(books) {
     };
 
     bookCard.innerHTML = `
-            <img src="${filteredBook.coverImg}" alt="${
-      filteredBook.title
-    } cover">
-            <h3>${filteredBook.title}</h3>
-            <p>Author: ${filteredBook.authors}</p>
-            <p>Genre: ${filteredBook.genres}</p>
-            <p>ID: ${filteredBook.id}</p>
-            <button class="wishlist-btn" data-id="${filteredBook.id}">
-                ${isWishlisted(filteredBook.id) ? "❤️" : "🤍"}
-            </button>
-        `;
+      <a href="book-details.html?id=${filteredBook.id}" class="book-link">
+        <img src="${filteredBook.coverImg}" alt="${filteredBook.title} cover">
+        <h3>${filteredBook.title}</h3>
+        <p>Author: ${filteredBook.authors}</p>
+        <p>Genre: ${filteredBook.genres}</p>
+        <p>ID: ${filteredBook.id}</p>
+      </a>
+      <button class="wishlist-btn" data-id="${filteredBook.id}">
+        ${isWishlisted(filteredBook.id) ? "❤️" : "🤍"}
+      </button>
+    `;
 
     booksContainer.appendChild(bookCard);
   });
@@ -75,7 +72,6 @@ function displayBooks(books) {
   updatePagination();
 }
 
-// Update pagination
 function updatePagination() {
   prevPageBtn.disabled = currentPage === 1;
   nextPageBtn.disabled = currentPage === totalPages;
@@ -119,7 +115,6 @@ function updatePagination() {
   }
 }
 
-// Load books
 async function loadBooks() {
   const books = await fetchBooks(currentPage);
   currentBooks = books;
@@ -142,7 +137,6 @@ async function initializeGenres() {
   });
 }
 
-// Wishlist functions
 function getWishlist() {
   return JSON.parse(localStorage.getItem("wishlist")) || [];
 }
@@ -169,7 +163,6 @@ function toggleWishlist(bookId) {
   displayBooks(currentBooks);
 }
 
-// Event listeners
 searchInput.addEventListener("input", () => {
   currentPage = 1;
   localStorage.setItem("bookSearch", searchInput.value);
@@ -210,6 +203,5 @@ filterBtn.addEventListener("click", () => {
   loadBooks();
 });
 
-// Initialize the app
 initializeGenres();
 loadBooks();

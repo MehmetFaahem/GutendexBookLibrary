@@ -52,11 +52,13 @@ async function loadWishlist() {
       const genres = book.bookshelves.join(", ") || "N/A";
 
       bookCard.innerHTML = `
-                <img src="${coverImg}" alt="${book.title} cover">
-                <h3>${book.title}</h3>
-                <p>Author: ${authors}</p>
-                <p>Genre: ${genres}</p>
-                <p>ID: ${book.id}</p>
+                <a href="book-details.html?id=${book.id}" class="book-link">
+                    <img src="${coverImg}" alt="${book.title} cover">
+                    <h3>${book.title}</h3>
+                    <p>Author: ${authors}</p>
+                    <p>Genre: ${genres}</p>
+                    <p>ID: ${book.id}</p>
+                </a>
                 <button class="remove-btn" data-id="${book.id}">Remove from Wishlist</button>
             `;
 

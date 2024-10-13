@@ -81,8 +81,16 @@ function updatePagination() {
   }
 
   pageNumbers.innerHTML = "";
-  const startPage = Math.max(1, currentPage - 4);
-  const endPage = Math.min(totalPages, startPage + 9);
+  const isSmallScreen = window.innerWidth <= 768;
+  const visiblePages = isSmallScreen ? 3 : 10;
+  const halfVisible = Math.floor(visiblePages / 2);
+
+  let startPage = Math.max(1, currentPage - halfVisible);
+  let endPage = Math.min(totalPages, startPage + visiblePages - 1);
+
+  if (endPage - startPage + 1 < visiblePages) {
+    startPage = Math.max(1, endPage - visiblePages + 1);
+  }
 
   if (startPage > 1) {
     addPageNumber(1);
@@ -121,7 +129,6 @@ async function loadBooks() {
   displayBooks(books);
 }
 
-// Initialize genres
 async function initializeGenres() {
   const books = await fetchBooks();
   const genres = new Set();
